@@ -7,19 +7,6 @@
 ---
 
 
-## 📦 Структура проекта
-
-
-
-llm-cli-app/
-├── app/
-│ ├── init.py
-│ ├── main.py # CLI и логика сравнения
-│ ├── llm_client.py # Работа с OpenAI API, подсчет токенов и стоимости
-│ └── comparator.py # Анализ и отображение сравнения ответов
-├── requirements.txt
-├── Readme.md
-└── venv/
 
 
 ---
