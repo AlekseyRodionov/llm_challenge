@@ -28,9 +28,13 @@ cp .env.example .env
 
 Отредактируйте `.env`:
 ```
-OPENAI_API_KEY=your_api_key
-OPENAI_BASE_URL=https://api.url/v1
+OPENAI_API_KEY=your_api_key_here
+OPENAI_BASE_URL=https://routerai.ru/api/v1
 OPENAI_MODEL=openai/gpt-4o-mini
+
+BENCHMARK_WEAK=qwen/qwen3.5-plus-02-15
+BENCHMARK_MEDIUM=qwen/qwen3-coder-next
+BENCHMARK_STRONG=qwen/qwen3.5-397b-a17b
 ```
 
 ---
