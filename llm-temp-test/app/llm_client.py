@@ -14,12 +14,9 @@ client = OpenAI(
     base_url=BASE_URL
 )
 
-# Примерные цены (за 1M токенов, ориентировочно)
+# Цены (за 1M токенов, в рублях)
 MODEL_PRICES = {
-    "openai/gpt-4o": {"input": 5.0, "output": 15.0},
-    "openai/gpt-4o-mini": {"input": 0.15, "output": 0.60},
-    "openai/gpt-4.1-mini": {"input": 0.20, "output": 0.80},
-    "openai/gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
+    "default": {"input": 14.0, "output": 59.0},
 }
 
 
@@ -32,10 +29,7 @@ def count_tokens(text: str, model: str):
 
 
 def estimate_cost(model: str, input_tokens: int, output_tokens: int):
-    if model not in MODEL_PRICES:
-        return 0.0
-
-    price = MODEL_PRICES[model]
+    price = MODEL_PRICES.get("default", {"input": 14.0, "output": 59.0})
     cost = (
         (input_tokens / 1_000_000) * price["input"] +
         (output_tokens / 1_000_000) * price["output"]

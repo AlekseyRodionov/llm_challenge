@@ -1,35 +1,44 @@
-# LLM CLI Benchmark Tool
+# llm-benchmark
 
 CLI-инструмент для сравнения LLM моделей по времени, токенам и стоимости.
 
 ---
 
+## Описание
+
+Инструмент для сравнения производительности и качества различных LLM моделей. Позволяет запускать один запрос на нескольких моделях и сравнивать результаты.
+
+## Возможности
+
+- Сравнение 3 уровней моделей (weak/medium/strong)
+- Измерение времени выполнения
+- Подсчет токенов и стоимости
+- Гибкая настройка моделей
+
+---
+
 ## Установка
 
-Клонируйте репозиторий:
 ```bash
-git clone https://github.com/AlekseyRodionov/llm_challenge.git
-cd llm_challenge/
-```
-
-Создайте виртуальное окружение и установите зависимости:
-```bash
+cd llm-benchmark
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Настройка API
+## Настройка
 
 Создайте файл `.env`:
+
 ```bash
 cp .env.example .env
 ```
 
 Отредактируйте `.env`:
-```
+
+```env
 OPENAI_API_KEY=your_api_key_here
-OPENAI_BASE_URL=https://routerai.ru/api/v1
+OPENAI_BASE_URL=https://api.openai.com/v1
 OPENAI_MODEL=openai/gpt-4o-mini
 
 BENCHMARK_WEAK=qwen/qwen3.5-plus-02-15
@@ -42,27 +51,32 @@ BENCHMARK_STRONG=qwen/qwen3.5-397b-a17b
 ## Использование
 
 ### Обычный запрос
+
 ```bash
 python -m app.main "Ваш запрос"
 ```
 
 ### Benchmark (сравнение 3 моделей)
+
 ```bash
 python -m app.main "Ваш запрос" --benchmark
 ```
 
 ### Benchmark с выбором моделей
+
 ```bash
 python -m app.main "Ваш запрос" --benchmark --levels weak medium
 python -m app.main "Ваш запрос" --benchmark --levels weak strong
 ```
 
 ### Benchmark с лимитом токенов
+
 ```bash
 python -m app.main "Ваш запрос" --benchmark --max-tokens 200
 ```
 
 ### Контролируемый режим
+
 ```bash
 python -m app.main "Ваш запрос" --compare
 ```
@@ -82,6 +96,7 @@ python -m app.main "Ваш запрос" --compare
 ## Метрики
 
 Программа измеряет:
+
 - **Время** — время выполнения запроса в секундах
 - **Input tokens** — количество токенов в запросе
 - **Output tokens** — количество токенов в ответе
@@ -90,16 +105,16 @@ python -m app.main "Ваш запрос" --compare
 
 ---
 
-## Особенности
+## Структура проекта
 
-- Progress bar при выполнении benchmark
-- Таймаут по умолчанию: 300 секунд
-- Прерывание: Ctrl+C
-- Ограничение токенов для strong модели
-
----
-
-## Требования
-
-- Python 3.9+
-- OpenAI-совместимый API
+```
+llm-benchmark/
+├── app/
+│   ├── __init__.py
+│   ├── comparator.py    # Сравнение результатов
+│   ├── llm_client.py   # Работа с API
+│   └── main.py         # CLI интерфейс
+├── .env
+├── requirements.txt
+└── Readme.md
+```

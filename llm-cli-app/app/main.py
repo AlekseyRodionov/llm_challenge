@@ -28,7 +28,7 @@ def print_metrics(title, data):
     table.add_row("Input tokens", str(data["input_tokens"]))
     table.add_row("Output tokens", str(data["output_tokens"]))
     table.add_row("Total tokens", str(data["total_tokens"]))
-    table.add_row("Оценка стоимости ($)", str(data["cost"]))
+    table.add_row("Оценка стоимости (₽)", str(data["cost"]))
 
     console.print(table)
 
