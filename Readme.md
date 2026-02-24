@@ -13,6 +13,7 @@
 | [llm-temp-test](llm-temp-test/) | Анализ влияния temperature на качество ответов |
 | [llmsolver](llmsolver/) | Решение логических задач с помощью LLM |
 | [simp-agent](simp-agent/) | Интерактивный агент с поддержкой контекста |
+| [agent-memory](agent-memory/) | Агент с сохранением контекста в SQLite |
 
 ---
 
