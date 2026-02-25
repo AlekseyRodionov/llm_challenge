@@ -14,6 +14,7 @@
 | [llmsolver](llmsolver/) | Решение логических задач с помощью LLM |
 | [simp-agent](simp-agent/) | Интерактивный агент с поддержкой контекста |
 | [agent-memory](agent-memory/) | Агент с сохранением контекста в SQLite |
+| [agent-token-count](agent-token-count/) | Агент с детальным подсчетом токенов |
 
 ---
 
