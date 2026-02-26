@@ -14,6 +14,7 @@
 | [llmsolver](llmsolver/) | Решение логических задач с помощью LLM |
 | [simp-agent](simp-agent/) | Интерактивный агент с поддержкой контекста |
 | [agent-memory](agent-memory/) | Агент с сохранением контекста в SQLite |
+| [agent-token-count](agent-token-count/) | Агент с детальным подсчетом токенов |
 | [agent-context-compr](agent-context-compr/) | Агент со сжатием контекста (summary) |
 
 ---
@@ -50,7 +51,7 @@ OPENAI_MODEL=openai/gpt-4o-mini
 
 ## Структура проектов
 
-Каждый проект имеет единую структуру:
+Большинство проектов имеют единую структуру:
 
 ```
 <project-name>/
@@ -58,7 +59,8 @@ OPENAI_MODEL=openai/gpt-4o-mini
 │   ├── __init__.py
 │   ├── main.py         # Точка входа
 │   ├── llm_client.py   # Работа с API
-│   └── comparator.py   # Анализ/сравнение
+│   └── ...
+├── memory/              # SQLite база данных (для некоторых проектов)
 ├── .env
 ├── requirements.txt
 └── Readme.md
