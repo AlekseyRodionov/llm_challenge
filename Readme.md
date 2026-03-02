@@ -16,6 +16,7 @@
 | [agent-memory](agent-memory/) | Агент с сохранением контекста в SQLite |
 | [agent-token-count](agent-token-count/) | Агент с детальным подсчетом токенов |
 | [agent-context-compr](agent-context-compr/) | Агент со сжатием контекста (summary) |
+| [agent-managed-context](agent-managed-context/) | Агент с 3 стратегиями управления контекстом |
 
 ---
 
