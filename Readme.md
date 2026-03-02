@@ -6,17 +6,30 @@
 
 ## Проекты
 
+### Week 1
+
 | Проект | Описание |
 |--------|----------|
-| [llm-cli-app](llm-cli-app/) | Базовый CLI-инструмент для запросов к LLM |
-| [llm-benchmark](llm-benchmark/) | Сравнение LLM моделей по времени, токенам и стоимости |
-| [llm-temp-test](llm-temp-test/) | Анализ влияния temperature на качество ответов |
-| [llmsolver](llmsolver/) | Решение логических задач с помощью LLM |
-| [simp-agent](simp-agent/) | Интерактивный агент с поддержкой контекста |
-| [agent-memory](agent-memory/) | Агент с сохранением контекста в SQLite |
-| [agent-token-count](agent-token-count/) | Агент с детальным подсчетом токенов |
-| [agent-context-compr](agent-context-compr/) | Агент со сжатием контекста (summary) |
-| [agent-managed-context](agent-managed-context/) | Агент с 3 стратегиями управления контекстом |
+| [llm-benchmark](week_1/llm-benchmark/) | Сравнение LLM моделей по времени, токенам и стоимости |
+| [llm-temp-test](week_1/llm-temp-test/) | Анализ влияния temperature на качество ответов |
+| [llmsolver](week_1/llmsolver/) | Решение логических задач с помощью LLM |
+
+### Week 2
+
+| Проект | Описание |
+|--------|----------|
+| [llm-cli-app](week_2/llm-cli-app/) | Базовый CLI-инструмент для запросов к LLM |
+| [simp-agent](week_2/simp-agent/) | Интерактивный агент с поддержкой контекста |
+| [agent-memory](week_2/agent-memory/) | Агент с сохранением контекста в SQLite |
+| [agent-token-count](week_2/agent-token-count/) | Агент с детальным подсчетом токенов |
+| [agent-context-compr](week_2/agent-context-compr/) | Агент со сжатием контекста (summary) |
+| [agent-managed-context](week_2/agent-managed-context/) | Агент с 3 стратегиями управления контекстом |
+
+### Week 3
+
+| Проект | Описание |
+|--------|----------|
+| [agent_managed_memory](week_3/agent_managed_memory/) | Агент с 3 слоями памяти и AI-маршрутизацией |
 
 ---
 
