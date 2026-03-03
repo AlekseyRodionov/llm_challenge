@@ -30,6 +30,7 @@
 | Проект | Описание |
 |--------|----------|
 | [agent_managed_memory](week_3/agent_managed_memory/) | Агент с 3 слоями памяти и AI-маршрутизацией |
+| [agent_with_profiles](week_3/agent_with_profiles/) | Агент с профилями и адаптацией ответов |
 
 ---
 
