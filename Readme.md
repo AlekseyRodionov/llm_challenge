@@ -31,6 +31,7 @@
 |--------|----------|
 | [agent_managed_memory](week_3/agent_managed_memory/) | Агент с 3 слоями памяти и AI-маршрутизацией |
 | [agent_with_profiles](week_3/agent_with_profiles/) | Агент с профилями и адаптацией ответов |
+| [fsm_agent](week_3/fsm_agent/) | Агент с FSM — управление задачами через конечный автомат |
 
 ---
 
