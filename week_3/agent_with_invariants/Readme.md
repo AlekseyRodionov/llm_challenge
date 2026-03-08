@@ -108,6 +108,11 @@ python -m app.main
 | `reset_task` | Сбросить задачу |
 | `status` | Статус задачи |
 
+**Демо:**
+| Команда | Описание |
+|---------|----------|
+| `demo` | Запустить демонстрацию |
+
 ---
 
 ## Пример работы
@@ -163,25 +168,24 @@ python -m app.main
 IDLE ---------> PLANNING
                |
                v
-        WAITING_APPROVAL
-         /            \
-   approve          reset_task
-     |                |
-     v                v
+       WAITING_APPROVAL
+        /            \
+  approve          reset_task
+    |                |
+    v                v
 EXECUTING <---------+
     |
    /next
     v
 VALIDATING
- /        \
-VALID    NEED_FIX
-  |          |
-  v          v
- DONE     PLANNING
-   |
-reset_task
-   v
- IDLE
+    |
+ confirm (или next на последнем шаге)
+    v
+  DONE
+    |
+ reset_task
+    v
+  IDLE
 
 pause -> PAUSED -> resume -> EXECUTING
 ```

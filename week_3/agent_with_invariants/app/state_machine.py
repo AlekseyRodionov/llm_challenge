@@ -23,6 +23,16 @@ VALID_TRANSITIONS = {
     "PAUSED": ["EXECUTING"]
 }
 
+STATE_DESCRIPTIONS = {
+    "IDLE": "Нет активной задачи",
+    "PLANNING": "Генерация плана",
+    "WAITING_APPROVAL": "Ожидание подтверждения плана",
+    "EXECUTING": "Выполнение шагов",
+    "VALIDATING": "Валидация результата",
+    "DONE": "Задача выполнена",
+    "PAUSED": "Задача приостановлена"
+}
+
 
 class StateError(Exception):
     """Ошибка при недопустимом переходе."""
@@ -43,5 +53,7 @@ def transition(from_state: str, to_state: str) -> str:
     Raises StateError при недопустимом переходе.
     """
     if not can_transition(from_state, to_state):
-        raise StateError(f"Недопустимый переход: {from_state} -> {to_state}")
+        from_desc = STATE_DESCRIPTIONS.get(from_state, from_state)
+        to_desc = STATE_DESCRIPTIONS.get(to_state, to_state)
+        raise StateError(f"{from_desc} → {to_desc}")
     return to_state

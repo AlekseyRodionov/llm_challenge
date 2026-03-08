@@ -121,8 +121,26 @@ class Agent:
 
     def _handle_fsm(self, user_message: str) -> dict:
         """FSM режим - обрабатывает только команды."""
+        task = get_task()
+        state = task["state"] if task else "IDLE"
+        
+        state_hints = {
+            "PLANNING": "План генерируется...",
+            "WAITING_APPROVAL": "План готов. Используйте approve для подтверждения.",
+            "EXECUTING": "Выполнение шага. Используйте next.",
+            "VALIDATING": "Валидация результата...",
+            "DONE": "Задача завершена. Используйте reset_task для новой.",
+            "PAUSED": "Задача на паузе. Используйте resume."
+        }
+        
+        hint = state_hints.get(state, "")
+        msg = f"⚙️ FSM режим (состояние: {state})"
+        if hint:
+            msg += f"\n{hint}"
+        msg += "\n\nКоманды: task_start, approve, next, pause, resume, reset_task, status"
+        
         return {
-            "text": "FSM режим. Используйте команды: task_start, approve, next, pause, resume, reset_task, status",
+            "text": msg,
             "input_tokens": 0,
             "output_tokens": 0,
             "total_tokens": 0,
@@ -134,17 +152,17 @@ class Agent:
         """Запуск новой задачи. /task start"""
         task = get_task()
         
-        if task and task["state"] != "IDLE":
+        if task and task["state"] not in ("IDLE", "DONE"):
             return {
-                "text": "Задача уже существует. Используйте /reset_task для начала новой.",
+                "text": f"⚠️ Задача уже существует (состояние: {task['state']}). Используйте reset_task для начала новой.",
                 "state": task["state"]
             }
         
-        if task:
-            update_task("PLANNING", "", 0)
-        else:
-            create_task(task_text)
-            update_task("PLANNING", "", 0)
+        if task and task["state"] == "DONE":
+            delete_task()
+        
+        create_task(task_text)
+        update_task("PLANNING", "", 0)
         
         result = self._fsm_planning(task_text)
         
@@ -190,25 +208,67 @@ class Agent:
         task = get_task()
         
         if not task:
-            return {"text": "Нет активной задачи.", "error": True}
+            return {"text": "❌ Нет активной задачи. Используйте task_start \"задача\"", "error": True}
+        
+        current_state = task["state"]
+        
+        if current_state == "IDLE":
+            return {"text": "❌ Нет активной задачи. Используйте task_start \"задача\"", "error": True}
+        
+        if current_state == "DONE":
+            return {"text": "❌ Задача уже завершена. Используйте reset_task для новой задачи.", "error": True}
+        
+        if current_state == "EXECUTING":
+            return {"text": "⚠️ Задача уже выполняется. Используйте next для следующего шага.", "error": True}
+        
+        if current_state == "VALIDATING":
+            return {"text": "❌ Задача на валидации. Ожидайте результат проверки.", "error": True}
+        
+        if current_state == "PAUSED":
+            return {"text": "❌ Задача приостановлена. Используйте resume для продолжения.", "error": True}
+        
+        if current_state == "PLANNING":
+            return {"text": "⏳ План ещё генерируется. Подождите.", "error": True}
+        
+        if current_state != "WAITING_APPROVAL":
+            return {"text": f"❌ Недопустимое действие для состояния {current_state}. Ожидается WAITING_APPROVAL.", "error": True}
         
         try:
-            new_state = transition(task["state"], "EXECUTING")
+            new_state = transition(current_state, "EXECUTING")
             update_task(new_state)
             self.execution_results = []
-            return {"text": "Начинаю выполнение.", "state": new_state}
+            return {"text": "✅ План утверждён. Начинаю выполнение.", "state": new_state}
         except StateError as e:
-            return {"text": str(e), "error": True}
+            return {"text": f"❌ Недопустимый переход: {e}", "error": True}
 
     def fsm_next(self) -> dict:
         """Выполнение следующего шага. /next"""
         task = get_task()
         
         if not task:
-            return {"text": "Нет активной задачи.", "error": True}
+            return {"text": "❌ Нет активной задачи. Используйте task_start \"задача\"", "error": True}
         
-        if task["state"] != "EXECUTING":
-            return {"text": f"Команда /next доступна в состоянии EXECUTING. Текущее: {task['state']}", "error": True}
+        current_state = task["state"]
+        
+        if current_state == "DONE":
+            return {"text": "❌ Задача уже завершена. Используйте reset_task для новой задачи.", "error": True}
+        
+        if current_state == "PAUSED":
+            return {"text": "❌ Задача приостановлена. Используйте resume для продолжения.", "error": True}
+        
+        if current_state == "PLANNING":
+            return {"text": "❌ План ещё не утверждён. Используйте approve для подтверждения плана.", "error": True}
+        
+        if current_state == "WAITING_APPROVAL":
+            return {"text": "❌ План требует подтверждения. Используйте approve для начала выполнения.", "error": True}
+        
+        if current_state != "EXECUTING":
+            return {"text": f"❌ Команда /next доступна в состоянии EXECUTING. Текущее: {current_state}", "error": True}
+        
+        try:
+            transition(current_state, "EXECUTING")
+        except StateError as e:
+            return {"text": f"❌ Недопустимый переход: {e}", "error": True}
         
         try:
             plan = json.loads(task["plan"]) if task["plan"] else []
@@ -332,46 +392,56 @@ class Agent:
         task = get_task()
         
         if not task:
-            return {"text": "Нет активной задачи.", "error": True}
+            return {"text": "❌ Нет активной задачи. Используйте task_start \"задача\"", "error": True}
+        
+        current_state = task["state"]
+        
+        if current_state != "EXECUTING":
+            return {"text": f"❌ Пауза доступна только в состоянии EXECUTING. Текущее: {current_state}", "error": True}
         
         try:
-            new_state = transition(task["state"], "PAUSED")
+            new_state = transition(current_state, "PAUSED")
             update_task(new_state)
-            return {"text": "Задача приостановлена.", "state": new_state}
+            return {"text": "✅ Задача приостановлена.", "state": new_state}
         except StateError as e:
-            return {"text": str(e), "error": True}
+            return {"text": f"❌ Недопустимый переход: {e}", "error": True}
 
     def fsm_resume(self) -> dict:
         """Возобновление. /resume"""
         task = get_task()
         
         if not task:
-            return {"text": "Нет активной задачи.", "error": True}
+            return {"text": "❌ Нет активной задачи. Используйте task_start \"задача\"", "error": True}
+        
+        current_state = task["state"]
+        
+        if current_state != "PAUSED":
+            return {"text": f"❌ Resume доступно только из состояния PAUSED. Текущее: {current_state}", "error": True}
         
         try:
-            new_state = transition(task["state"], "EXECUTING")
+            new_state = transition(current_state, "EXECUTING")
             update_task(new_state)
-            return {"text": "Задача возобновлена.", "state": new_state}
+            return {"text": "✅ Задача возобновлена.", "state": new_state}
         except StateError as e:
-            return {"text": str(e), "error": True}
+            return {"text": f"❌ Недопустимый переход: {e}", "error": True}
 
     def fsm_reset(self) -> dict:
         """Сброс задачи. /reset"""
         task = get_task()
         
         if not task:
-            return {"text": "Нет активной задачи.", "error": True}
+            return {"text": "ℹ️ Нет активной задачи.", "state": "IDLE"}
         
         delete_task()
         self.execution_results = []
-        return {"text": "Задача удалена.", "state": "IDLE"}
+        return {"text": "✅ Задача сброшена. Можете начать новую: task_start \"задача\"", "state": "IDLE"}
 
     def fsm_status(self) -> dict:
         """Статус задачи. /status"""
         task = get_task()
         
         if not task:
-            return {"state": "IDLE", "text": "Нет активной задачи."}
+            return {"state": "IDLE", "text": "ℹ️ Нет активной задачи."}
         
         plan = json.loads(task["plan"]) if task["plan"] else []
         

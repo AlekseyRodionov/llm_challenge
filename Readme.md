@@ -32,7 +32,7 @@
 | [agent_managed_memory](week_3/agent_managed_memory/) | Агент с 3 слоями памяти и AI-маршрутизацией |
 | [agent_with_profiles](week_3/agent_with_profiles/) | Агент с профилями и адаптацией ответов |
 | [fsm_agent](week_3/fsm_agent/) | Агент с FSM — управление задачами через конечный автомат |
-| [agent_with_invariants](week_3/agent_with_invariants/) | Агент с FSM и системными инвариантами |
+| [agent_with_invariants](week_3/agent_with_invariants/) | Агент с FSM, профилями пользователей и системными инвариантами |
 
 ---
 
@@ -87,7 +87,4 @@ OPENAI_MODEL=openai/gpt-4o-mini
 
 ## Стоимость токенов
 
-По умолчанию используются цены:
-
-- Входящие токены: 14 ₽ / 1M
-- Исходящие токены: 59 ₽ / 1M
+Стоимость зависит от используемой модели. Проверяйте актуальные цены на сайте провайдера API.
