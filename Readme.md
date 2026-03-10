@@ -38,13 +38,16 @@
 
 | Проект | Описание |
 |--------|----------|
-| [fsm_mcp_agent](week_4/fsm_mcp_agent/) | Агент с FSM, профилями и поддержкой MCP |
+| [fsm_mcp_agent](week_4/fsm_mcp_agent/) | Агент с FSM, профилями и MCP (ручная реализация JSON-RPC) |
+| [fsm_mcp_sdk_agent](week_4/fsm_mcp_sdk_agent/) | Агент с FSM, профилями и MCP (FastMCP SDK) |
+
+> Примечание: fsm_mcp_sdk_agent требует Python 3.10+
 
 ---
 
 ## Общие требования
 
-- Python 3.9+
+- Python 3.10+ (для MCP SDK в fsm_mcp_sdk_agent)
 - OpenAI-совместимый API
 - Виртуальное окружение (venv)
 
