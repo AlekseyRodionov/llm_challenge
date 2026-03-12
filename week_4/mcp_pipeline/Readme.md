@@ -267,46 +267,6 @@ python -m app.main
 Шаг: 2/3
 ```
 
-### MCP Workflow
-
-```
-> mcp_start
-MCP server started
-
-> mcp_list
-Available MCP tools:
-  * current_time              — текущее время
-  * get_mock_issues          — демо-задачи
-  * mock_random_tip          — случайный совет
-  * schedule_report           — запустить scheduler (interval_seconds=N)
-  * stop_reports              — остановить scheduler
-  * get_reports_summary       — статистика сборки
-  * get_last_reports          — последние 5 отчётов
-
-> mcp_call get_mock_issues
-Result: ['Issue 1 in default', 'Issue 2 in default']
-
-> mcp_call current_time
-Result: 2026-03-10 16:45:30
-
-> mcp_call schedule_report interval_seconds=5
-Result: Report scheduled every 5 seconds
-
-# В другом терминале:
-# tail -f scheduler.log
-# [2026-03-10T16:45:30] MCP Server started
-# [2026-03-10T16:45:30] Activated with interval=5s
-# [2026-03-10T16:45:35] Collecting report...
-# [2026-03-10T16:45:35] Saved report (2 issues)
-
-> mcp_call get_reports_summary
-Result: Reports collected: 1
-Last report: 2026-03-10T16:45:35
-[Scheduler active]
-
-> mcp_call stop_reports
-Result: Report collection stopped
-
 ### MCP Pipeline Workflow
 
 ```
@@ -346,39 +306,6 @@ MCP disconnected
 
 ---
 
-## FSM диаграмма
-
-```
-        /task_start
-           |
-           v
-IDLE ---------> PLANNING
-               |
-               v
-       WAITING_APPROVAL
-        /            \
-  approve          reset_task
-    |                |
-    v                v
-EXECUTING <---------+
-    |
-   /next
-    v
-VALIDATING
-    |
- confirm (или next на последнем шаге)
-    v
-  DONE
-    |
- reset_task
-    v
-  IDLE
-
-pause -> PAUSED -> resume -> EXECUTING
-```
-
----
-
 ## Структура проекта
 
 ```
@@ -407,16 +334,3 @@ mcp_pipeline/
 └── Readme.md
 ```
 
----
-
-## Состояния FSM
-
-| Состояние | Описание |
-|-----------|----------|
-| IDLE | Нет активной задачи (legacy режим) |
-| PLANNING | Генерация плана |
-| WAITING_APPROVAL | Ожидание подтверждения |
-| EXECUTING | Выполнение шагов |
-| VALIDATING | Валидация результата |
-| DONE | Задача выполнена |
-| PAUSED | Приостановлена |
