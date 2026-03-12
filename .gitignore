@@ -4,3 +4,4 @@ __pycache__/
 .DS_Store
 *.db
 scheduler.log
+monitoring_summary.txt
