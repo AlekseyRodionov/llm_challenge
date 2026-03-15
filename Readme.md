@@ -39,7 +39,7 @@
 | Проект | Описание |
 |--------|----------|
 | [scheduling_mcp_agent](week_4/scheduling_mcp_agent/) | Агент с FSM, профилями и MCP (FastMCP SDK) + Scheduler |
-| [mcp_pipeline](week_4/mcp_pipeline/) | **MCP Pipeline Agent** — автоматическая обработка данных через цепочку MCP инструментов |
+| [mcp_multi_server](week_4/mcp_multi_server/) | **MCP Multi-Server Agent** — интерактивный агент с LLM анализом запросов, multi-server MCP (demo_server + external_api_server) |
 
 > Примечание: требуется Python 3.10+
 
