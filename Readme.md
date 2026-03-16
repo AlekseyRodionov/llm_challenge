@@ -41,15 +41,22 @@
 | [scheduling_mcp_agent](week_4/scheduling_mcp_agent/) | Агент с FSM, профилями и MCP (FastMCP SDK) + Scheduler |
 | [mcp_multi_server](week_4/mcp_multi_server/) | **MCP Multi-Server Agent** — интерактивный агент с LLM анализом запросов, multi-server MCP (demo_server + external_api_server) |
 
+### Week 5
+
+| Проект | Описание |
+|--------|----------|
+| [rag_project](week_5/rag_project/) | **RAG Document Indexing** — индексация документов с эмбеддингами (FAISS + Ollama), 2 стратегии chunking |
+
 > Примечание: требуется Python 3.10+
 
 ---
 
 ## Общие требования
 
-- Python 3.10+ (для scheduling_mcp_agent, mcp_pipeline)
-- OpenAI-совместимый API
+- Python 3.10+
+- OpenAI-совместимый API (для большинства проектов)
 - Виртуальное окружение (venv)
+- Ollama (для rag_project)
 
 ## Установка
 
@@ -90,6 +97,25 @@ OPENAI_MODEL=openai/gpt-4o-mini
 ├── .env
 ├── requirements.txt
 └── Readme.md
+```
+
+Проект rag_project имеет другую структуру:
+
+```
+rag_project/
+├── docs/                    # Исходные документы
+│   ├── fire_dataset.txt
+│   └── mkdocs_dataset.txt
+├── src/                    # Исходный код
+│   ├── loader.py
+│   ├── chunking_fixed.py
+│   ├── chunking_structure.py
+│   ├── embedder.py
+│   ├── index_store.py
+│   └── main.py
+├── index/                  # Созданные индексы (FAISS)
+├── requirements.txt
+└── README.md
 ```
 
 ---

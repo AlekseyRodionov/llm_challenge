@@ -5,3 +5,4 @@ __pycache__/
 *.db
 scheduler.log
 monitoring_summary.txt
+rag_project/index/
