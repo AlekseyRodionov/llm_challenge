@@ -5,4 +5,4 @@ __pycache__/
 *.db
 scheduler.log
 monitoring_summary.txt
-*/index/
+**/index/
