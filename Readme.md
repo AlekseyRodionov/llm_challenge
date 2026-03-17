@@ -46,6 +46,7 @@
 | Проект | Описание |
 |--------|----------|
 | [rag_project](week_5/rag_project/) | **RAG Document Indexing** — индексация документов с эмбеддингами (FAISS + Ollama), 2 стратегии chunking |
+| [rag_chat_agent](week_5/rag_chat_agent/) | **RAG Chat Agent** — гибридный агент с RAG (FAISS + Ollama) и LLM (OpenAI), CLI интерфейс |
 
 > Примечание: требуется Python 3.10+
 
@@ -56,7 +57,7 @@
 - Python 3.10+
 - OpenAI-совместимый API (для большинства проектов)
 - Виртуальное окружение (venv)
-- Ollama (для rag_project)
+- Ollama (для rag_project, rag_chat_agent)
 
 ## Установка
 
@@ -114,6 +115,25 @@ rag_project/
 │   ├── index_store.py
 │   └── main.py
 ├── index/                  # Созданные индексы (FAISS)
+├── requirements.txt
+└── README.md
+```
+
+Проект rag_chat_agent:
+
+```
+rag_chat_agent/
+├── docs/                    # Документы для индексации
+├── index/                   # FAISS индексы
+├── app/
+│   ├── agent.py            # Agent с поддержкой RAG
+│   ├── llm_client.py       # OpenAI API
+│   ├── retriever.py        # FAISS поиск
+│   ├── generator.py        # Генерация ответов
+│   ├── evaluator.py        # Сравнение RAG vs Non-RAG
+│   └── cli.py              # CLI интерфейс
+├── main.py
+├── .env
 ├── requirements.txt
 └── README.md
 ```
