@@ -47,6 +47,8 @@
 |--------|----------|
 | [rag_project](week_5/rag_project/) | **RAG Document Indexing** — индексация документов с эмбеддингами (FAISS + Ollama), 2 стратегии chunking |
 | [rag_chat_agent](week_5/rag_chat_agent/) | **RAG Chat Agent** — гибридный агент с RAG (FAISS + Ollama) и LLM (OpenAI), CLI интерфейс |
+| [filtered_rag_chat_agent](week_5/filtered_rag_chat_agent/) | **Filtered RAG Agent** — RAG с фильтрацией по distance и query rewrite |
+| [grounded-rag](week_5/grounded-rag/) | **Grounded RAG** — RAG с Sources, Quotes, отступлением (fallback) и оценкой качества |
 
 > Примечание: требуется Python 3.10+
 
