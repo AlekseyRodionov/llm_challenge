@@ -8,3 +8,5 @@ eval_*.log
 scheduler.log
 monitoring_summary.txt
 **/index/
+**/tests/__pycache__/
+**/tests/*.pyc
