@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.venv/
+
+# Logs
+logs/
+*.log
+
+# Indexes
+index/
+
+# Tests cache
+tests/__pycache__/
+tests/*.pyc
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
