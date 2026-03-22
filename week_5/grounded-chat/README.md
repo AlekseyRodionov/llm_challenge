@@ -30,7 +30,7 @@ grounded-chat/
 │   └── llm_client.py
 ├── docs/               # Документы (Fire + MkDocs)
 ├── index/              # FAISS индексы
-├── logs/               # Логи (ignored)
+├── logs/               # Логи (ignored: *.log)
 ├── main.py
 ├── .env
 ├── requirements.txt

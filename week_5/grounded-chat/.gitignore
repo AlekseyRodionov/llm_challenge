@@ -25,3 +25,4 @@ tests/*.pyc
 .idea/
 *.swp
 tests/
+*.log
