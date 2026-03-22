@@ -10,3 +10,10 @@ monitoring_summary.txt
 **/index/
 **/tests/__pycache__/
 **/tests/*.pyc
+
+# grounded-chat
+**/grounded-chat/venv/
+**/grounded-chat/*.log
+**/grounded-chat/logs/*.log
+**/grounded-chat/__pycache__/
+**/grounded-chat/tests/
