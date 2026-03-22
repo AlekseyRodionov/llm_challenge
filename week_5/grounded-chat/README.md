@@ -31,8 +31,6 @@ grounded-chat/
 ├── docs/               # Документы (Fire + MkDocs)
 ├── index/              # FAISS индексы
 ├── logs/               # Логи (ignored)
-├── tests/
-│   └── test_scenarios.py  # 2 сценария
 ├── main.py
 ├── .env
 ├── requirements.txt
@@ -175,6 +173,8 @@ Constraints: ["На GitHub Pages"]
 
 ## Тестовые сценарии
 
+> **Примечание:** Тесты доступны локально (не в git). Скопируйте файл `tests/test_scenarios.py` при необходимости.
+
 ### Сценарий 1: MkDocs
 
 ```
@@ -236,9 +236,6 @@ ollama serve
 
 # Терминал 2: Чат
 python main.py
-
-# Или запуск тестов
-python tests/test_scenarios.py
 ```
 
 ---
@@ -255,9 +252,6 @@ python main.py
 # Демо режим
 python main.py --demo mkdocs   # MkDocs сценарий
 python main.py --demo fire     # Fire сценарий
-
-# Тесты
-python tests/test_scenarios.py
 ```
 
 ---
