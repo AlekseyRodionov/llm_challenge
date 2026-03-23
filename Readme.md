@@ -51,6 +51,12 @@
 | [grounded-rag](week_5/grounded-rag/) | **Grounded RAG** — RAG с Sources, Quotes, отступлением (fallback) и оценкой качества |
 | [grounded-chat](week_5/grounded-chat/) | **Grounded Chat** — RAG + память задачи + демо режим |
 
+### Week 6
+
+| Проект | Описание |
+|--------|----------|
+| [local-llm-cli](week_6/local-llm-cli/) | **Local LLM CLI** — минимальный CLI-клиент для работы с Ollama |
+
 > Примечание: требуется Python 3.10+
 
 ---
@@ -60,7 +66,7 @@
 - Python 3.10+
 - OpenAI-совместимый API (для большинства проектов)
 - Виртуальное окружение (venv)
-- Ollama (для rag_project, rag_chat_agent)
+- Ollama (для rag_project, rag_chat_agent, local-llm-cli)
 
 ## Установка
 
