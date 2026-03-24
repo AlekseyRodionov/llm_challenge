@@ -34,6 +34,17 @@ python main.py
 
 ---
 
+## Веб-интерфейс
+
+```bash
+python app/web.py
+```
+→ http://localhost:5001
+
+Интерфейс на русском языке. Позволяет отправлять запросы к модели через браузер.
+
+---
+
 ## Использование
 
 ```
@@ -80,7 +91,10 @@ local-llm-cli/
 ├── app/
 │   ├── __init__.py
 │   ├── client.py   # OllamaClient
-│   └── cli.py      # run_cli()
+│   ├── cli.py      # run_cli()
+│   └── web.py      # Flask веб-интерфейс
+├── templates/
+│   └── index.html  # HTML шаблон
 ├── main.py
 ├── requirements.txt
 └── README.md

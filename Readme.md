@@ -1,6 +1,6 @@
 # LLM Projects
 
-Коллекция Python-проектов для работы с LLM через OpenAI API.
+Коллекция Python-проектов для работы с LLM через OpenAI API и Ollama.
 
 ---
 
@@ -55,7 +55,7 @@
 
 | Проект | Описание |
 |--------|----------|
-| [local-llm-cli](week_6/local-llm-cli/) | **Local LLM CLI** — минимальный CLI-клиент для работы с Ollama |
+| [local-llm-cli](week_6/local-llm-cli/) | **Local LLM CLI** — минимальный CLI и веб-интерфейс для работы с Ollama |
 
 > Примечание: требуется Python 3.10+
 
@@ -66,7 +66,7 @@
 - Python 3.10+
 - OpenAI-совместимый API (для большинства проектов)
 - Виртуальное окружение (venv)
-- Ollama (для rag_project, rag_chat_agent, local-llm-cli)
+- Ollama (для проектов с Ollama: rag_project, rag_chat_agent, filtered_rag_chat_agent, grounded-rag, grounded-chat, local-llm-cli)
 
 ## Установка
 
