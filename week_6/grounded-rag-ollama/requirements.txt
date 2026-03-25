@@ -1,0 +1,6 @@
+openai
+tiktoken
+python-dotenv
+rich
+faiss-cpu
+requests
