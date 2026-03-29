@@ -54,9 +54,10 @@
 ### Week 6
 
 | Проект | Описание |
-|--------|----------|
+|--------|---------|
 | [local-llm-cli](week_6/local-llm-cli/) | **Local LLM CLI** — минимальный CLI и веб-интерфейс для работы с Ollama |
 | [grounded-rag-ollama](week_6/grounded-rag-ollama/) | **Grounded RAG (Ollama)** — RAG с переключением cloud/local, Sources, Quotes, evaluator |
+| [vps-llm-service](week_6/vps-llm-service/) | **VPS LLM Service** — Flask API + Ollama на VPS с rate limiting, retry, fallback. Стабильный сервис на tinyllama. |
 
 > Примечание: требуется Python 3.10+
 
@@ -67,7 +68,7 @@
 - Python 3.10+
 - OpenAI-совместимый API (для большинства проектов)
 - Виртуальное окружение (venv)
-- Ollama (для проектов с Ollama: rag_project, rag_chat_agent, filtered_rag_chat_agent, grounded-rag, grounded-chat, local-llm-cli, grounded-rag-ollama)
+- Ollama (для проектов с Ollama: rag_project, rag_chat_agent, filtered_rag_chat_agent, grounded-rag, grounded-chat, local-llm-cli, grounded-rag-ollama, vps-llm-service)
 
 ## Установка
 

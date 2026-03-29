@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Chat Service</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        #message {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        #message:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #response {
+            min-height: 60px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #007bff;
+        }
+        #response.loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #dc3545;
+            border-left-color: #dc3545;
+        }
+        .latency {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .info {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LLM Chat Service</h1>
+    <div class="chat-container">
+        <div class="input-group">
+            <input type="text" id="message" placeholder="Введите вопрос..." />
+            <button onclick="sendMessage()">Отправить</button>
+        </div>
+        <div id="response">Ответ появится здесь...</div>
+    </div>
+    <p class="info">Rate limit: 1 запрос в секунду</p>
+
+    <script>
+        const input = document.getElementById('message');
+        const responseDiv = document.getElementById('response');
+        const button = document.querySelector('button');
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+
+            button.disabled = true;
+            responseDiv.className = 'loading';
+            responseDiv.innerHTML = 'Думаю...';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': 'yd6fa9796eea089c8e10e1a2f7656cbbd6ae7269d79baf9bab7c92c3bba799032'
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    responseDiv.className = 'error';
+                    responseDiv.innerHTML = data.error || 'Произошла ошибка';
+                } else {
+                    responseDiv.className = '';
+                    responseDiv.innerHTML = `
+                        ${data.response}
+                        <div class="latency">Время ответа: ${data.latency} сек</div>
+                    `;
+                }
+            } catch (err) {
+                responseDiv.className = 'error';
+                responseDiv.innerHTML = 'Ошибка соединения с сервером';
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
