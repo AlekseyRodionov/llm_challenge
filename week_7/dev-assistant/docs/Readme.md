@@ -59,12 +59,6 @@
 | [grounded-rag-ollama](week_6/grounded-rag-ollama/) | **Grounded RAG (Ollama)** — RAG с переключением cloud/local, Sources, Quotes, evaluator |
 | [vps-llm-service](week_6/vps-llm-service/) | **VPS LLM Service** — Flask API + Ollama на VPS с rate limiting, retry, fallback. Стабильный сервис на tinyllama. |
 
-### Week 7
-
-| Проект | Описание |
-|--------|----------|
-| [dev-assistant](week_7/dev-assistant/) | **Dev Assistant** — RAG + MCP ассистент для документации проекта llm_challenge |
-
 > Примечание: требуется Python 3.10+
 
 ---

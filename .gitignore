@@ -8,6 +8,10 @@ eval_*.log
 scheduler.log
 monitoring_summary.txt
 **/index/
+**/project_index/
+**/docs/*_dataset.txt
+**/docs/fire_dataset.txt
+**/docs/mkdocs_dataset.txt
 **/tests/__pycache__/
 **/tests/*.pyc
 
@@ -17,3 +21,6 @@ monitoring_summary.txt
 **/grounded-chat/logs/*.log
 **/grounded-chat/__pycache__/
 **/grounded-chat/tests/
+
+# Project context (private)
+PROJECT_CONTEXT.md
