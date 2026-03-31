@@ -1,0 +1,70 @@
+name: Code Review
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get diff from main
+        run: |
+          git fetch origin main
+          git diff origin/main...HEAD > diff.txt
+          echo "Changed files:" 
+          git diff --stat origin/main...HEAD
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r week_7/code-review-agent/requirements.txt
+      
+      - name: Run code review
+        id: run_review
+        run: |
+          python week_7/code-review-agent/scripts/run_review.py diff.txt > review_output.txt 2>&1
+          cat review_output.txt
+      
+      - name: Upload review output
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: review-output
+          path: review_output.txt
+          retention-days: 7
+      
+      - name: Post comment to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let result = '';
+            try {
+              result = fs.readFileSync('review_output.txt', 'utf8');
+            } catch (e) {
+              result = 'Could not read review output';
+            }
+            
+            if (result.length > 60000) {
+              result = result.substring(0, 60000) + '\n... (truncated)';
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## 🤖 AI Code Review\n\n```\n' + result + '\n```'
+            });
