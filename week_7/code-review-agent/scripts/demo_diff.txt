@@ -1,0 +1,81 @@
+diff --git a/app/services/user_service.py b/app/services/user_service.py
+new file mode 100644
+--- /dev/null
++++ b/app/services/user_service.py
+@@ -0,0 +1,25 @@
++from app.db import get_connection
++
++def get_user_by_id(user_id):
++    conn = get_connection()
++    cursor = conn.cursor()
++    # SQL Injection - конкатенация строк
++    cursor.execute("SELECT * FROM users WHERE id = " + user_id)
++    return cursor.fetchone()
++
++def create_user(name, email, password):
++    conn = get_connection()
++    cursor = conn.cursor()
++    # Пароль в открытом виде
++    query = "INSERT INTO users (name, email, password) VALUES ('" + name + "', '" + email + "', '" + password + "')"
++    cursor.execute(query)
++    conn.commit()
++    return True
++
++def update_user_email(user_id, email):
++    conn = get_connection()
++    cursor = conn.cursor()
++    # SQL Injection
++    cursor.execute("UPDATE users SET email = '" + email + "' WHERE id = " + user_id)
++    conn.commit()
+diff --git a/app/agent.py b/app/agent.py
+--- a/app/agent.py
++++ b/app/agent.py
+@@ -10,15 +10,25 @@ class Agent:
+     def __init__(self, name):
+         self.name = name
+         self.context = []
++        self.cache = {}
+ 
+-    def process(self, prompt):
+-        return self._generate(prompt)
++    def process(self, prompt, use_cache=False):
++        if use_cache and prompt in self.cache:
++            return self.cache[prompt]
++        result = self._process_raw(prompt)
++        if use_cache:
++            self.cache[prompt] = result
++        return result
++
++    def _process_raw(self, prompt):
++        # eval() - критическая уязвимость
++        return eval(prompt)
+ 
+     def _generate(self, prompt):
+         return f"Response to: {prompt}"
++
++    def clear_cache(self):
++        # Cache без ограничения размера
++        pass
+diff --git a/app/api/handlers.py b/app/api/handlers.py
+--- a/app/api/handlers.py
++++ b/app/api/handlers.py
+@@ -15,8 +15,20 @@ def handle_request(request):
+     return {"status": "ok"}
+ 
+ def get_user_data(user_id):
+-    return {"id": user_id}
++    user = db.get(user_id)
++    if user:
++        # Возврат password_hash - утечка
++        return {
++            "id": user.id,
++            "name": user.name,
++            "email": user.email,
++            "password_hash": user.password
++        }
++    return None
++
++def export_all_users():
++    # Нет pagination
++    users = db.query("SELECT * FROM users")
++    return list(users)
