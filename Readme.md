@@ -64,6 +64,7 @@
 | Проект | Описание |
 |--------|----------|
 | [dev-assistant](week_7/dev-assistant/) | **Dev Assistant** — RAG + MCP ассистент для документации проекта llm_challenge |
+| [code-review-agent](week_7/code-review-agent/) | **AI Code Review Agent** — автоматический ревью PR с RAG, GitHub Action |
 
 > Примечание: требуется Python 3.10+
 

@@ -22,11 +22,14 @@ code-review-agent/
 │   ├── reviewer.py        # Главный модуль (всё в одном)
 │   ├── diff_parser.py    # Парсинг git diff
 │   ├── rag_context.py   # Сбор контекста (docs + code)
-│   └── llm_client.py    # OpenAI API клиент
+│   ├── llm_client.py    # OpenAI API клиент
+│   └── config.py        # Конфигурация
 ├── scripts/
-│   └── run_review.py     # CLI скрипт
+│   ├── run_review.py     # CLI скрипт
+│   ├── run_demo.sh       # Запуск демо
+│   └── demo_diff.txt     # Demo diff с ошибками
 ├── .github/workflows/
-│   └── review.yml        # GitHub Action
+│   └── review.yml        # GitHub Action (в корне репозитория)
 ├── requirements.txt
 └── README.md
 ```
@@ -123,18 +126,23 @@ Suggestions:
 
 ## GitHub Action
 
-Workflow запускается автоматически при Pull Request:
+Workflow запускается автоматически при Pull Request и добавляет комментарий с ревью.
 
-```yaml
-on: pull_request
-```
+### Secrets (настройка в Settings → Secrets and variables → Actions):
+
+| Secret | Описание |
+|--------|----------|
+| `OPENAI_API_KEY` | API ключ OpenAI |
+| `OPENAI_BASE_URL` | URL API (например https://routerai.ru/api/v1) |
+| `OPENAI_MODEL` | Модель (например openai/gpt-4o-mini) |
+| `GH_TOKEN` | GitHub token с правами repo для записи комментариев в PR |
 
 ### Как это работает:
 
 1. Пушится код в PR
 2. GitHub Action получает diff
 3. Запускается review
-4. Результат выводится в лог
+4. Результат добавляется как комментарий в PR
 
 ---
 
