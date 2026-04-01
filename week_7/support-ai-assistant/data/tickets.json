@@ -1,0 +1,5 @@
+[
+  {"user_id": 1, "issue": "login failed", "attempts": 5, "status": "open"},
+  {"user_id": 2, "issue": "password reset", "attempts": 0, "status": "closed"},
+  {"user_id": 3, "issue": "account locked", "attempts": 3, "status": "open"}
+]
