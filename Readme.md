@@ -66,6 +66,7 @@
 | [dev-assistant](week_7/dev-assistant/) | **Dev Assistant** — RAG + MCP ассистент для документации проекта llm_challenge |
 | [code-review-agent](week_7/code-review-agent/) | **AI Code Review Agent** — автоматический ревью PR с RAG, GitHub Action |
 | [support-ai-assistant](week_7/support-ai-assistant/) | **Support AI Assistant** — AI-ассистент поддержки с RAG и контекстом пользователя |
+| [fileops-assistant](week_7/fileops-assistant/) | **FileOps Assistant** — AI-ассистент для работы с файлами проекта |
 
 > Примечание: требуется Python 3.10+
 
